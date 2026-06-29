@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wish Click Photography | Manchester Photography</title>
+    <meta name="description" content="Wish Click Photography - Professional photography services in Manchester. Book your session today!">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #eee; line-height: 1.6; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .nav-brand { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: #f2cc8f; text-decoration: none; }
+        .nav-cta { background: #f2cc8f; color: #000; padding: 0.5rem 1.2rem; border-radius: 25px; text-decoration: none; font-weight: 600; font-size: 0.85rem; }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 6rem 2rem 4rem; background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%); position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; width: 400px; height: 400px; background: #f2cc8f15; border-radius: 50%; top: -100px; right: -100px; filter: blur(80px); }
+        .hero::after { content: ''; position: absolute; width: 300px; height: 300px; background: #f2cc8f10; border-radius: 50%; bottom: -50px; left: -50px; filter: blur(60px); }
+        .hero-content { position: relative; z-index: 1; max-width: 700px; }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; opacity: 0; animation: fadeUp 1s 0.2s forwards; }
+        .hero p { font-size: 1.1rem; color: #aaa; margin-bottom: 2rem; opacity: 0; animation: fadeUp 1s 0.4s forwards; }
+        .hero .rating { color: #f2cc8f; font-size: 1.1rem; margin-bottom: 2rem; opacity: 0; animation: fadeUp 1s 0.5s forwards; }
+        .btn { display: inline-block; padding: 0.9rem 2rem; border-radius: 30px; text-decoration: none; font-weight: 600; transition: all 0.3s; opacity: 0; animation: fadeUp 1s 0.6s forwards; }
+        .btn-primary { background: #f2cc8f; color: #000; margin-right: 0.5rem; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px #f2cc8f40; }
+        .btn-outline { border: 2px solid #f2cc8f; color: #f2cc8f; }
+        section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .section-sub { text-align: center; color: #888; margin-bottom: 3rem; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .service-card { background: #141414; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 2rem; transition: all 0.3s; }
+        .service-card:hover { transform: translateY(-5px); border-color: #f2cc8f50; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .service-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .service-card h3 { margin-bottom: 0.5rem; color: #f2cc8f; }
+        .service-card p { color: #999; font-size: 0.9rem; }
+        .about { background: #0f0f0f; }
+        .about-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .about-img { width: 100%; height: 350px; background: linear-gradient(135deg, #1a1a2e, #16213e); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+        .about-text h2 { font-size: 2rem; margin-bottom: 1rem; }
+        .about-text p { color: #999; margin-bottom: 1rem; }
+        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .testimonial { background: #141414; border-radius: 16px; padding: 2rem; border: 1px solid rgba(255,255,255,0.05); }
+        .testimonial .stars { color: #f2cc8f; margin-bottom: 0.5rem; }
+        .testimonial p { color: #aaa; font-style: italic; margin-bottom: 1rem; }
+        .testimonial .author { color: #666; font-size: 0.85rem; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+        .price-card { background: #141414; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 2.5rem 2rem; text-align: center; transition: all 0.3s; }
+        .price-card.featured { border-color: #f2cc8f; transform: scale(1.05); }
+        .price-card h3 { color: #f2cc8f; margin-bottom: 0.5rem; }
+        .price-card .price { font-size: 2.5rem; font-weight: 700; margin: 1rem 0; }
+        .price-card .price span { font-size: 0.9rem; color: #666; font-weight: 400; }
+        .price-card ul { list-style: none; margin: 1.5rem 0; text-align: left; }
+        .price-card ul li { padding: 0.4rem 0; color: #aaa; font-size: 0.9rem; }
+        .price-card ul li::before { content: "• "; color: #f2cc8f; }
+        .contact { background: #0f0f0f; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .contact-info p { color: #999; margin-bottom: 1rem; }
+        .contact-form input, .contact-form textarea, .contact-form select { width: 100%; padding: 0.8rem 1rem; margin-bottom: 1rem; background: #141414; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #eee; font-family: inherit; }
+        .contact-form textarea { height: 100px; resize: vertical; }
+        .contact-form button { width: 100%; padding: 0.9rem; background: #f2cc8f; color: #000; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 1rem; }
+        footer { background: #050505; padding: 2rem; text-align: center; color: #555; font-size: 0.85rem; }
+        footer a { color: #f2cc8f; text-decoration: none; }
+        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; width: 55px; height: 55px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; box-shadow: 0 5px 20px rgba(37,211,102,0.4); z-index: 999; text-decoration: none; animation: pulse 2s infinite; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 768px) {
+            .about-wrap, .contact-grid { grid-template-columns: 1fr; }
+            .price-card.featured { transform: none; }
+            nav { padding: 0.8rem 1rem; }
+            section { padding: 3rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" class="nav-brand">Wish Click Photography</a>
+        <a href="https://wa.me/447498338720" class="nav-cta">Book Now</a>
+    </nav>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Professional Photography in Manchester</h1>
+            <p>Capturing moments that matter</p>
+            <div class="rating">5.0★ | 50+ happy clients</div>
+            <div>
+                <a href="https://wa.me/447498338720" class="btn btn-primary">Get Free Quote</a>
+                <a href="#services" class="btn btn-outline">View Services</a>
+            </div>
+        </div>
+    </section>
+    <section id="services">
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-sub">Professional photography tailored to your needs</p>
+        <div class="services-grid">
+        <div class="service-card reveal">
+            <div class="service-icon">📷</div>
+            <h3>Commercial Photography</h3>
+            <p>Product and brand photography for businesses</p>
+        </div>
+        <div class="service-card reveal">
+            <div class="service-icon">📷</div>
+            <h3>Portrait Sessions</h3>
+            <p>Individual and group portrait sessions</p>
+        </div>
+        <div class="service-card reveal">
+            <div class="service-icon">📷</div>
+            <h3>Event Coverage</h3>
+            <p>Full documentation of your special events</p>
+        </div>
+        <div class="service-card reveal">
+            <div class="service-icon">📷</div>
+            <h3>Photo Editing</h3>
+            <p>Professional retouching and enhancement</p>
+        </div>
+        <div class="service-card reveal">
+            <div class="service-icon">📷</div>
+            <h3>Print Services</h3>
+            <p>High-quality prints in all sizes</p>
+        </div>
+        <div class="service-card reveal">
+            <div class="service-icon">📷</div>
+            <h3>Digital Delivery</h3>
+            <p>Fast online gallery access</p>
+        </div></div>
+    </section>
+    <section class="about">
+        <div class="about-wrap">
+            <div class="about-img">📸</div>
+            <div class="about-text">
+                <h2>About Wish Click Photography</h2>
+                <p>Wish Click Photography is a professional photography business serving Manchester and surrounding areas with quality imagery.</p>
+                <p>With a 5.0★ rating and 50+ happy clients, we have built a reputation for quality and reliability in Manchester.</p>
+                <p>Based at , we serve clients across Manchester and beyond.</p>
+                <a href="https://wa.me/447498338720" class="btn btn-primary" style="margin-top:1rem;">Let's Talk</a>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2 class="section-title">What Clients Say</h2>
+        <p class="section-sub">Real feedback from our happy customers</p>
+        <div class="testimonials-grid">
+            <div class="testimonial reveal">
+                <div class="stars">★★★★★</div>
+                <p>"Absolutely amazing experience! The photos were beyond our expectations."</p>
+                <div class="author">— Sarah M., Manchester</div>
+            </div>
+            <div class="testimonial reveal">
+                <div class="stars">★★★★★</div>
+                <p>"Professional, friendly, and the results speak for themselves. Highly recommend!"</p>
+                <div class="author">— James T., Manchester</div>
+            </div>
+            <div class="testimonial reveal">
+                <div class="stars">★★★★★</div>
+                <p>"They made us feel comfortable and captured every special moment perfectly."</p>
+                <div class="author">— Emma L., Manchester</div>
+            </div>
+        </div>
+    </section>
+    <section id="pricing">
+        <h2 class="section-title">Pricing</h2>
+        <p class="section-sub">Transparent packages for every need</p>
+        <div class="pricing-grid">
+            <div class="price-card reveal">
+                <h3>Starter</h3>
+                <div class="price">£149<span>/session</span></div>
+                <ul><li>1-hour session</li><li>20 edited photos</li><li>Online gallery</li><li>Digital delivery</li></ul>
+                <a href="https://wa.me/447498338720" class="btn btn-outline" style="width:100%;text-align:center;display:block;">Choose</a>
+            </div>
+            <div class="price-card featured reveal">
+                <h3>Popular</h3>
+                <div class="price">£299<span>/session</span></div>
+                <ul><li>2-hour session</li><li>50 edited photos</li><li>Online gallery</li><li>10 printed photos</li><li>Priority booking</li></ul>
+                <a href="https://wa.me/447498338720" class="btn btn-primary" style="width:100%;text-align:center;display:block;">Choose</a>
+            </div>
+            <div class="price-card reveal">
+                <h3>Premium</h3>
+                <div class="price">£499<span>/session</span></div>
+                <ul><li>Full-day coverage</li><li>100+ edited photos</li><li>Premium album</li><li>All prints included</li><li>Drone shots included</li></ul>
+                <a href="https://wa.me/447498338720" class="btn btn-outline" style="width:100%;text-align:center;display:block;">Choose</a>
+            </div>
+        </div>
+    </section>
+    <section class="contact">
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h2 class="section-title" style="text-align:left;">Get In Touch</h2>
+                <p>📍 </p>
+                <p>⭐ 5.0★ (50+ happy clients)</p>
+                <p>📸 Photography</p>
+                <p style="margin-top:2rem;">Ready to book your session? Send us a message on WhatsApp and we'll get back to you within the hour.</p>
+                <a href="https://wa.me/447498338720" class="btn btn-primary" style="margin-top:1rem;">Message on WhatsApp</a>
+            </div>
+            <div>
+                <form class="contact-form" onsubmit="event.preventDefault(); this.innerHTML='<p style=\'color:#25D366;font-size:1.2rem;text-align:center;padding:2rem;\'>\u2705 Message Sent! We\'ll be in touch soon.</p>';">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="tel" placeholder="Phone Number" required>
+                    <select required>
+                        <option value="">Select Service</option>
+                        <option>Photography Session</option>
+                        <option>Event Coverage</option>
+                        <option>Commercial Shoot</option>
+                        <option>Other</option>
+                    </select>
+                    <textarea placeholder="Your Message"></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2026 Wish Click Photography. All rights reserved. | <a href="https://wa.me/447498338720">WhatsApp Us</a></p>
+        <p style="margin-top:0.5rem;font-size:0.75rem;">This is a demo website. For inquiries, <a href="https://www.linkedin.com/in/taslimul6">contact us</a>.</p>
+    </footer>
+    <a href="https://wa.me/447498338720" class="whatsapp-float" title="Chat on WhatsApp">💬</a>
+    <script>
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        reveals.forEach(el => observer.observe(el));
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
+    </script>
+</body>
+</html>
